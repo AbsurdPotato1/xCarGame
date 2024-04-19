@@ -12,24 +12,24 @@ public class Player extends Entity{
     GamePanel gp;
     KeyHandler keyH;
 
-    public final int screenX;
-    public final int screenY;
+//    public final int screenX;
+//    public final int screenY;
 
     public Player(GamePanel gp, KeyHandler keyH){
         this.gp = gp;
         this.keyH = keyH;
 
-        screenX = gp.screenWidth / 2;
-        screenY = gp.screenHeight / 2;
+//        screenX = gp.screenWidth / 2;
+//        screenY = gp.screenHeight / 2;
 
-        solidArea = new Rectangle(8, 16, gp.tileSize - 16, gp.tileSize - 16);
+        solidArea = new Rectangle(8, 16, 898/4, 436/4);
 
         setDefaultValues();
         getPlayerImage();
     }
     public void setDefaultValues(){
-        worldX = gp.tileSize * gp.maxWorldCol / 2;
-        worldY = gp.tileSize * gp.maxWorldRow / 2 + gp.tileSize * 3;
+        worldX = 50;
+        worldY = 50;
         speedHor = 4;
         speedVert = 4;
     }
@@ -37,8 +37,7 @@ public class Player extends Entity{
     public void getPlayerImage(){
 //        System.out.println("Image loading started");
         try {
-//            car1 = ImageIO.read(getClass().getClassLoader().getResourceAsStream("player/StartingCarTransparent.png"));
-            car1 = ImageIO.read(getClass().getClassLoader().getResourceAsStream("player/boy_down_1.png"));
+            car1 = ImageIO.read(getClass().getClassLoader().getResourceAsStream("player/StartingCarTransparentCropped.png"));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -62,6 +61,7 @@ public class Player extends Entity{
         collisionOn = false;
         gp.cChecker.checkTile(this);
 
+
         // IF COLLISION IS FALSE, PLAYER CAN MOVE
         if(!collisionOn){
             if(keyH.leftPressed)
@@ -80,7 +80,7 @@ public class Player extends Entity{
         BufferedImage image = null;
 
         image = car1;
-        g2.drawImage(image, screenX, screenY, gp.tileSize, gp.tileSize, null);
+        g2.drawImage(image, worldX, worldY, 898 / 4, 436 / 4, null);
 
 
     }
