@@ -22,7 +22,7 @@ public class Player extends Entity{
 //        screenX = gp.screenWidth / 2;
 //        screenY = gp.screenHeight / 2;
 
-        solidArea = new Rectangle(8, 16, 898/4, 436/4);
+        solidArea = new Rectangle(0, 0, 898 / 4, 436 / 4);
 
         setDefaultValues();
         getPlayerImage();
@@ -63,16 +63,31 @@ public class Player extends Entity{
 
 
         // IF COLLISION IS FALSE, PLAYER CAN MOVE
-        if(!collisionOn){
-            if(keyH.leftPressed)
+        if(!collisionOn) {
+            if (keyH.leftPressed) {
                 worldX -= speedHor;
-            if(keyH.rightPressed)
-                worldX += speedHor;
-            if(keyH.jumpPressed)
-                worldY -= speedVert;
-            if(keyH.downPressed)
-                worldY += speedVert;
+                gp.cChecker.checkTile(this);
+            }
         }
+        if(!collisionOn) {
+            if (keyH.rightPressed) {
+                worldX += speedHor;
+                gp.cChecker.checkTile(this);
+            }
+        }
+        if(!collisionOn) {
+            if (keyH.jumpPressed) {
+                worldY -= speedVert;
+                gp.cChecker.checkTile(this);
+            }
+        }
+        if(!collisionOn) {
+            if (keyH.downPressed) {
+                worldY += speedVert;
+                gp.cChecker.checkTile(this);
+            }
+        }
+
     }
 
     public void draw(Graphics2D g2){
