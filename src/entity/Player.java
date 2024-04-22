@@ -46,48 +46,71 @@ public class Player extends Entity{
 
     public void update(){
         if(keyH.jumpPressed){
-            direction = "up";
-        }
-        if(keyH.leftPressed){
-            direction = "left";
+            direction[0] = true;
+        }else{
+            direction[0] = false;
         }
         if(keyH.rightPressed){
-            direction = "right";
+            direction[1] = true;
+        }else{
+            direction[1] = false;
         }
         if(keyH.downPressed){
-            direction = "down";
+            direction[2] = true;
+        }else{
+            direction[2] = false;
         }
+        if(keyH.leftPressed){
+            direction[3] = true;
+        }else{
+            direction[3] = false;
+        }
+
+//        if(keyH.jumpPressed){
+//            direction = "up";
+//        }
+//        if(keyH.leftPressed){
+//            direction = "left";
+//        }
+//        if(keyH.rightPressed){
+//            direction = "right";
+//        }
+//        if(keyH.downPressed){
+//            direction = "down";
+//        }
         //CHECK TILE COLLISION
-        collisionOn = false;
+        upCollisionOn = false;
+        rightCollisionOn = false;
+        downCollisionOn = false;
+        leftCollisionOn = false;
         gp.cChecker.checkTile(this);
 
 
         // IF COLLISION IS FALSE, PLAYER CAN MOVE
-        if(!collisionOn) {
-            if (keyH.leftPressed) {
-                worldX -= speedHor;
-                gp.cChecker.checkTile(this);
-            }
-        }
-        if(!collisionOn) {
-            if (keyH.rightPressed) {
-                worldX += speedHor;
-                gp.cChecker.checkTile(this);
-            }
-        }
-        if(!collisionOn) {
+        if(!upCollisionOn) {
             if (keyH.jumpPressed) {
                 worldY -= speedVert;
                 gp.cChecker.checkTile(this);
             }
         }
-        if(!collisionOn) {
+        if(!rightCollisionOn) {
+            if (keyH.rightPressed) {
+                worldX += speedHor;
+                gp.cChecker.checkTile(this);
+            }
+        }
+        if(!downCollisionOn) {
             if (keyH.downPressed) {
                 worldY += speedVert;
                 gp.cChecker.checkTile(this);
             }
         }
-
+        if(!leftCollisionOn) {
+            if (keyH.leftPressed) {
+                worldX -= speedHor;
+                gp.cChecker.checkTile(this);
+            }
+        }
     }
 
     public void draw(Graphics2D g2){
