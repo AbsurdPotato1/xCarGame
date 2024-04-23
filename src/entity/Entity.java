@@ -4,8 +4,8 @@ import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 
 public class Entity {
-    public int worldX, worldY;
-    public int speedVert, speedHor;
+    public double worldX, worldY;
+    public double speedVert, speedHor;
 //    public String direction = "up";
     public boolean[] direction = new boolean[4]; // goes clockwise from the top: 0 - up, 1 - right, 2 - down, 3 - left
     public final int gravity = 10;

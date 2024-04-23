@@ -30,8 +30,8 @@ public class Player extends Entity{
     public void setDefaultValues(){
         worldX = 50;
         worldY = 50;
-        speedHor = 4;
-        speedVert = 4;
+        speedHor = 4 * 60.0 / (double)gp.FPS;
+        speedVert = 4 * 60.0 / (double)gp.FPS;
     }
 
     public void getPlayerImage(){
@@ -118,7 +118,7 @@ public class Player extends Entity{
         BufferedImage image = null;
 
         image = car1;
-        g2.drawImage(image, worldX, worldY, 898 / 4, 436 / 4, null);
+        g2.drawImage(image, (int)worldX, (int)worldY, 898 / 4, 436 / 4, null);
 
 
     }
