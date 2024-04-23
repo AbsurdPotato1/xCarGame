@@ -43,7 +43,11 @@ public class Player extends Entity{
         }
 //        System.out.println("Image loading ended");
     }
-
+    public void jump(){
+        worldY -= speedVert;
+        accel -= gravity;
+        speedVert += accel;
+    }
     public void update(){
         if(keyH.jumpPressed){
             direction[0] = true;
@@ -89,8 +93,9 @@ public class Player extends Entity{
         // IF COLLISION IS FALSE, PLAYER CAN MOVE
         if(!upCollisionOn) {
             if (keyH.jumpPressed) {
-                worldY -= speedVert;
-                gp.cChecker.checkTile(this);
+                jump();
+//                worldY -= speedVert;
+//                gp.cChecker.checkTile(this);
             }
         }
         if(!rightCollisionOn) {

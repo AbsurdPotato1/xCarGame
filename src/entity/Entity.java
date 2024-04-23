@@ -8,7 +8,8 @@ public class Entity {
     public double speedVert, speedHor;
 //    public String direction = "up";
     public boolean[] direction = new boolean[4]; // goes clockwise from the top: 0 - up, 1 - right, 2 - down, 3 - left
-    public final int gravity = 10;
+    public int accel;
+    public final double gravity = 0.5 * 60 / 60;
     public BufferedImage car1;
     public int spriteCounter = 0;
     public int spriteNum = 1;
