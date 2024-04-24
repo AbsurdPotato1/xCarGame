@@ -29,6 +29,7 @@ public class CollisionChecker {
                 tileNum1 = gp.tileM.mapTileNum[entityTopRow][i];
                 if(gp.tileM.tile[tileNum1].collision) {
                     entity.upCollisionOn = true;
+                    entity.worldY = ((int)(entity.worldY )) / gp.tileSize * gp.tileSize;
                     break;
                 }
             }
@@ -39,6 +40,7 @@ public class CollisionChecker {
                 tileNum1 = gp.tileM.mapTileNum[i][entityRightCol];
                 if(gp.tileM.tile[tileNum1].collision) {
                     entity.rightCollisionOn = true;
+                    entity.worldX = ((int)(entity.worldX + 898 / 4) / gp.tileSize +1) * gp.tileSize - 898 / 4 - 3;
                     break;
                 }
             }
@@ -49,6 +51,8 @@ public class CollisionChecker {
                 tileNum1 = gp.tileM.mapTileNum[entityBottomRow][i];
                 if(gp.tileM.tile[tileNum1].collision) {
                     entity.downCollisionOn = true;
+                    entity.worldY = ((int)(entity.worldY + 109) / gp.tileSize +1) * gp.tileSize - 109 - 3;
+//                    entity.curUpSpeed = 0;
                     break;
                 }
             }

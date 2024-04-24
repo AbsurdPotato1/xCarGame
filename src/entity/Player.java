@@ -52,6 +52,7 @@ public class Player extends Entity{
         }
     }
     public void update(){
+        System.out.println(worldY);
 //        System.out.println(jumping);
         if(curUpSpeed > 0){
             direction[0] = true;
@@ -87,6 +88,7 @@ public class Player extends Entity{
 //            direction = "down";
 //        }
         //CHECK TILE COLLISION
+//        System.out.println(downCollisionOn);
         upCollisionOn = false;
         rightCollisionOn = false;
         downCollisionOn = false;
@@ -121,6 +123,7 @@ public class Player extends Entity{
 //                gp.cChecker.checkTile(this);
 //            }
 //        }
+        System.out.println(leftCollisionOn);
         if(!leftCollisionOn) {
             if (keyH.leftPressed) {
                 worldX -= speedHor;
