@@ -24,7 +24,7 @@ public class CollisionChecker {
 
         int tileNum1, tileNum2;
         if(entity.direction[0]){ // up
-            entityTopRow  = (int)((entityTopWorldY - entity.speedVert)/gp.tileSize);
+            entityTopRow  = (int)((entityTopWorldY - entity.curUpSpeed)/gp.tileSize);
             for(int i = entityLeftCol; i <= entityRightCol; i++){
                 tileNum1 = gp.tileM.mapTileNum[entityTopRow][i];
                 if(gp.tileM.tile[tileNum1].collision) {
@@ -44,7 +44,7 @@ public class CollisionChecker {
             }
         }
         if(entity.direction[2]){ // bottom
-            entityBottomRow  = (int)((entityBottomWorldY + entity.speedVert)/gp.tileSize);
+            entityBottomRow  = (int)((entityBottomWorldY - entity.curUpSpeed)/gp.tileSize); // - entity.curUpSpeed is because it will be negative - not positive like other variables.
             for(int i = entityLeftCol; i <= entityRightCol; i++){
                 tileNum1 = gp.tileM.mapTileNum[entityBottomRow][i];
                 if(gp.tileM.tile[tileNum1].collision) {
