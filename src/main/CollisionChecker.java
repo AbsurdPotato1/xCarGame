@@ -16,12 +16,12 @@ public class CollisionChecker {
         int entityRightWorldX = entity.worldX + entity.solidArea.x + entity.solidArea.width;
         int entityTopWorldY = entity.worldY + entity.solidArea.y;
         int entityBottomWorldY = entity.worldY + entity.solidArea.y + entity.solidArea.height;
-
+        System.out.println(entityBottomWorldY);
         int entityLeftCol = (entityLeftWorldX)/gp.tileSize;
         int entityRightCol = (entityRightWorldX-1)/gp.tileSize;
         int entityTopRow = (entityTopWorldY)/gp.tileSize;
         int entityBottomRow = (entityBottomWorldY-1)/gp.tileSize;
-
+        System.out.println(entityBottomRow);
         int tileNum1, tileNum2;
         if(entity.direction[0]){ // up
             entityTopRow  = (int)((entityTopWorldY - entity.curUpSpeed)/gp.tileSize);

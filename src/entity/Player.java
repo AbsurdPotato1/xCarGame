@@ -31,7 +31,7 @@ public class Player extends Entity{
         worldX = 50;
         worldY = 50;
         speedHor = 4 * 60.0 / (double)gp.FPS;
-        speedVert = 4 * 60.0 / (double)gp.FPS;
+//        speedVert = 4 * 60.0 / (double)gp.FPS;
     }
 
     public void getPlayerImage(){
@@ -48,7 +48,7 @@ public class Player extends Entity{
         curUpSpeed -= gravity;
     }
     public void update(){
-        System.out.println(worldY);
+//        System.out.println(worldY);
 //        System.out.println(jumping);
         if(curUpSpeed > 0){
             direction[0] = true;
@@ -125,11 +125,11 @@ public class Player extends Entity{
             jumping = true;
             curUpSpeed = 10 * 60 / (double)gp.FPS;
         }
-        System.out.println(downCollisionOn);
+        System.out.println(leftCollisionOn);
         if(!rightCollisionOn) {
             if (keyH.rightPressed) {
                 worldX += speedHor;
-                gp.cChecker.checkTile(this);
+//                gp.cChecker.checkTile(this);
             }
         }
 //        if(!downCollisionOn) {
@@ -142,7 +142,7 @@ public class Player extends Entity{
         if(!leftCollisionOn) {
             if (keyH.leftPressed) {
                 worldX -= speedHor;
-                gp.cChecker.checkTile(this);
+//                gp.cChecker.checkTile(this);
             }
         }
     }
