@@ -4,7 +4,7 @@ import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 
 public class Entity {
-    public double worldX, worldY;
+    public int worldX, worldY;
     public double speedVert, speedHor;
     public double curUpSpeed = 0;
 //    public String direction = "up";

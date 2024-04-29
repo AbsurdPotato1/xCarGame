@@ -22,7 +22,7 @@ public class Player extends Entity{
 //        screenX = gp.screenWidth / 2;
 //        screenY = gp.screenHeight / 2;
 
-        solidArea = new Rectangle(0, 0, 898 / 4, 436 / 4);
+        solidArea = new Rectangle(0, 0, 898 / 4, 436/4); //436 /4
 
         setDefaultValues();
         getPlayerImage();
@@ -44,12 +44,8 @@ public class Player extends Entity{
 //        System.out.println("Image loading ended");
     }
     public void jump(){
-        if(jumping){
-//            if(curUpSpeed <= 0)direction[2] = true;
-//                curUpSpeed = 10 * 60.0 / (double) gp.FPS;
-            worldY -= curUpSpeed;
-            curUpSpeed -= gravity;
-        }
+        worldY -= curUpSpeed;
+        curUpSpeed -= gravity;
     }
     public void update(){
         System.out.println(worldY);
@@ -94,23 +90,42 @@ public class Player extends Entity{
         downCollisionOn = false;
         leftCollisionOn = false;
         gp.cChecker.checkTile(this);
-
+        // TODO: player locks to one pixel higher than they should on downCollision if left or right movement is happening, can't jump as a result.
         // IF COLLISION IS FALSE, PLAYER CAN MOVE
 //        System.out.println(downCollisionOn);
 //        System.out.println(upCollisionOn);
-        if(downCollisionOn)jumping = false;
-        if(!downCollisionOn)jumping = true;
-        if(upCollisionOn && jumping)curUpSpeed = 0;
-        if(!upCollisionOn) {
-            if(jumping)jump();
-            if (keyH.jumpPressed && !jumping) {
-                jumping = true;
-                curUpSpeed = 10 * 60 / (double)gp.FPS;
-//                worldY -= speedVert;
-//                gp.cChecker.checkTile(this);
-            }
-        }
+        if (downCollisionOn) {
+            // Snap player to the nearest tile below
+            int playerBottomY = worldY + solidArea.height; // Calculate the bottom Y-coordinate of the player
+            int nearestTileBelowY = ((playerBottomY + gp.tileSize - 1) / gp.tileSize) * gp.tileSize; // Calculate nearest tile below
 
+            // Calculate the distance to the nearest tile above
+            int nearestTileAboveY = nearestTileBelowY - gp.tileSize;
+            int distToTileAbove = worldY + solidArea.height - nearestTileAboveY;
+
+            // Calculate the distance to the nearest tile below
+            int distToTileBelow = nearestTileBelowY - (worldY + solidArea.height);
+
+            // Snap to the nearest tile (above or below)
+            if (distToTileAbove < distToTileBelow) {
+                worldY = (nearestTileAboveY + 6) / gp.tileSize * gp.tileSize - solidArea.height;
+            } else {
+                worldY = (nearestTileBelowY + 6) / gp.tileSize * gp.tileSize - solidArea.height;
+            }
+
+            jumping = false;
+            curUpSpeed = 0;
+        } else {
+            jumping = true;
+        }
+//        if(!downCollisionOn)jumping = true;
+        if(upCollisionOn && jumping)curUpSpeed = 0;
+        if(jumping)jump();
+        if (keyH.jumpPressed && !jumping) {
+            jumping = true;
+            curUpSpeed = 10 * 60 / (double)gp.FPS;
+        }
+        System.out.println(downCollisionOn);
         if(!rightCollisionOn) {
             if (keyH.rightPressed) {
                 worldX += speedHor;
@@ -123,7 +138,7 @@ public class Player extends Entity{
 //                gp.cChecker.checkTile(this);
 //            }
 //        }
-        System.out.println(leftCollisionOn);
+//        System.out.println(leftCollisionOn);
         if(!leftCollisionOn) {
             if (keyH.leftPressed) {
                 worldX -= speedHor;
@@ -137,7 +152,7 @@ public class Player extends Entity{
         BufferedImage image = null;
 
         image = car1;
-        g2.drawImage(image, (int)worldX, (int)worldY, 898 / 4, 436 / 4, null);
+        g2.drawImage(image, (int)worldX, (int)worldY, 898 / 4, 436/4, null);
 
 
     }
