@@ -12,15 +12,9 @@ public class Player extends Entity{
     GamePanel gp;
     KeyHandler keyH;
 
-//    public final int screenX;
-//    public final int screenY;
-
     public Player(GamePanel gp, KeyHandler keyH){
         this.gp = gp;
         this.keyH = keyH;
-
-//        screenX = gp.screenWidth / 2;
-//        screenY = gp.screenHeight / 2;
 
         solidArea = new Rectangle(0, 0, 898 / 4, 436/4); //436 /4
 
@@ -31,25 +25,20 @@ public class Player extends Entity{
         worldX = 50;
         worldY = 50;
         speedHor = 4 * 60.0 / (double)gp.FPS;
-//        speedVert = 4 * 60.0 / (double)gp.FPS;
     }
 
     public void getPlayerImage(){
-//        System.out.println("Image loading started");
         try {
             car1 = ImageIO.read(getClass().getClassLoader().getResourceAsStream("player/StartingCarTransparentCropped.png"));
         } catch (IOException e) {
             e.printStackTrace();
         }
-//        System.out.println("Image loading ended");
     }
     public void jump(){
         worldY -= curUpSpeed;
         curUpSpeed -= gravity;
     }
     public void update(){
-//        System.out.println(worldY);
-//        System.out.println(jumping);
         if(curUpSpeed > 0){
             direction[0] = true;
         }else{
@@ -71,20 +60,6 @@ public class Player extends Entity{
             direction[3] = false;
         }
 
-//        if(keyH.jumpPressed){
-//            direction = "up";
-//        }
-//        if(keyH.leftPressed){
-//            direction = "left";
-//        }
-//        if(keyH.rightPressed){
-//            direction = "right";
-//        }
-//        if(keyH.downPressed){
-//            direction = "down";
-//        }
-        //CHECK TILE COLLISION
-//        System.out.println(downCollisionOn);
         upCollisionOn = false;
         rightCollisionOn = false;
         downCollisionOn = false;
@@ -92,8 +67,6 @@ public class Player extends Entity{
         gp.cChecker.checkTile(this);
         // TODO: player locks to one pixel higher than they should on downCollision if left or right movement is happening, can't jump as a result.
         // IF COLLISION IS FALSE, PLAYER CAN MOVE
-//        System.out.println(downCollisionOn);
-//        System.out.println(upCollisionOn);
         if (downCollisionOn) {
             // Snap player to the nearest tile below
             int playerBottomY = worldY + solidArea.height; // Calculate the bottom Y-coordinate of the player
@@ -125,24 +98,15 @@ public class Player extends Entity{
             jumping = true;
             curUpSpeed = 10 * 60 / (double)gp.FPS;
         }
-        System.out.println(leftCollisionOn);
+        System.out.println(downCollisionOn);
         if(!rightCollisionOn) {
             if (keyH.rightPressed) {
                 worldX += speedHor;
-//                gp.cChecker.checkTile(this);
             }
         }
-//        if(!downCollisionOn) {
-//            if (keyH.downPressed && !jumping) {
-//                worldY += speedVert;
-//                gp.cChecker.checkTile(this);
-//            }
-//        }
-//        System.out.println(leftCollisionOn);
         if(!leftCollisionOn) {
-            if (keyH.leftPressed) {
+            if (keyH.leftPressed) { // BUG RELATED: when keyH.leftPressed, left Collision is enabled for some reason
                 worldX -= speedHor;
-//                gp.cChecker.checkTile(this);
             }
         }
     }
