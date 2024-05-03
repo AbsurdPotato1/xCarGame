@@ -34,7 +34,30 @@ public class Player extends Entity{
             e.printStackTrace();
         }
     }
-    public void snapPlayerLoc(){
+    public void snapPlayerLoc() {
+        if (upCollisionOn) {
+            // Snap player to the nearest tile below
+            int playerTopY = worldY; // Calculate the bottom Y-coordinate of the player
+            int nearestTileAboveY = ((playerTopY) / gp.tileSize) * gp.tileSize; // Calculate nearest tile above
+
+            // Calculate the distance to the nearest tile above
+            int nearestTileBelowY = nearestTileAboveY + gp.tileSize;
+            int distToTileAbove = worldY - nearestTileAboveY; // should always be positive
+
+            // Calculate the distance to the nearest tile below
+            int distToTileBelow = nearestTileBelowY - worldY;
+
+            // Snap to the nearest tile (above or below)
+            if (distToTileAbove < distToTileBelow) {
+                worldY = (nearestTileAboveY + 6) / gp.tileSize * gp.tileSize;
+            } else {
+                worldY = (nearestTileBelowY + 6) / gp.tileSize * gp.tileSize;
+            }
+
+            jumping = true;
+            curUpSpeed = 0;
+            gp.cChecker.checkTile(this);
+        }
         if (rightCollisionOn) {
 //            while(rightCollisionOn){
 //                gp.cChecker.checkTile(this);
@@ -57,8 +80,8 @@ public class Player extends Entity{
             } else {
                 worldX = (nearestTileRightX + 6) / gp.tileSize * gp.tileSize - solidArea.width;
             }
+            gp.cChecker.checkTile(this);
         }
-        gp.cChecker.checkTile(this);
         if (downCollisionOn) {
             // Snap player to the nearest tile below
             int playerBottomY = worldY + solidArea.y + solidArea.height; // Calculate the bottom Y-coordinate of the player
@@ -77,12 +100,12 @@ public class Player extends Entity{
             } else {
                 worldY = (nearestTileBelowY + 6) / gp.tileSize * gp.tileSize - solidArea.height;
             }
-
             jumping = false;
             curUpSpeed = 0;
         } else {
             jumping = true;
         }
+        gp.cChecker.checkTile(this);
     }
     public void jump(){
         worldY -= curUpSpeed;
@@ -119,7 +142,7 @@ public class Player extends Entity{
         // IF COLLISION IS FALSE, PLAYER CAN MOVE
 
         snapPlayerLoc();
-        System.out.println(rightCollisionOn);
+        System.out.println(upCollisionOn);
 
 //        if(!downCollisionOn)jumping = true;
         if(upCollisionOn && jumping)curUpSpeed = 0;
@@ -128,7 +151,6 @@ public class Player extends Entity{
             jumping = true;
             curUpSpeed = 10 * 60 / (double)gp.FPS;
         }
-//        System.out.println(downCollisionOn);
         if(!rightCollisionOn) {
             if (keyH.rightPressed) {
                 worldX += speedHor;
